@@ -1,10 +1,12 @@
 {
     "name": "zackphp/saga",
+    "description": "Events and side effect handling with sagas for PHP.",
     "type": "library",
     "keywords": ["saga"],
     "homepage": "https://github.com/zackphp/saga",
     "license": "MIT",
     "require": {
+        "php": ">=7.0.10",
         "symfony/event-dispatcher": "^3.1"
     },
     "require-dev": {
