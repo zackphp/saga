@@ -1,1 +1,1 @@
-[![Build Status](https://travis-ci.org/zackphp/saga.svg?branch=master)](https://travis-ci.org/zackphp/saga)
+[![Build Status](https://travis-ci.org/zackphp/saga.svg?branch=master)](https://travis-ci.org/zackphp/saga) [![Coverage Status](https://coveralls.io/repos/github/zackphp/saga/badge.svg?branch=master)](https://coveralls.io/github/zackphp/saga?branch=master)
