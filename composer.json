@@ -1,4 +1,9 @@
 {
+    "name": "zackphp/saga",
+    "type": "library",
+    "keywords": ["saga"],
+    "homepage": "https://github.com/zackphp/saga",
+    "license": "MIT",
     "require": {
         "symfony/event-dispatcher": "^3.1"
     },
