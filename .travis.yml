@@ -4,9 +4,18 @@ php:
   - 7.0
   - 7.1
 
+env:
+  - SYMFONY_VERSION=2.7.*
+  - SYMFONY_VERSION=3.1.*
+
+before_install:
+  - composer self-update
+  - composer require symfony/symfony:${SYMFONY_VERSION} --no-update
+  - composer update
+
 install:
   - composer install --dev --no-interaction
-  - composer require "satooshi/php-coveralls:~1.0" --no-progress
+  - composer require "satooshi/php-coveralls:~1.0"
 
 before_script:
   - mkdir -p build/coverage
