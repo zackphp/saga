@@ -9,7 +9,7 @@ Inspired by [`redux-saga`](https://github.com/yelouafi/redux-saga) it uses PHP g
 ```php
 <?php
 
-use \Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Zack\Saga\Processor;
 use Zack\Saga\SagaInterface;
 
@@ -17,7 +17,7 @@ class LoginSaga implements SagaInterface
 {
     public function run(): \Generator
     {
-        // Wait for the 'acme.event.name'
+        // Wait for the 'acme.user.login' event.
         $event = yield take('acme.user.login');
         
         // Get user from given ID.
