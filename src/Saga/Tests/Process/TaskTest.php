@@ -1,6 +1,6 @@
 <?php
 
-namespace Zack\Tests\Process;
+namespace Zack\Saga\Tests\Process;
 
 use PHPUnit\Framework\TestCase;
 use Zack\Saga\Process\ProcessInterface;

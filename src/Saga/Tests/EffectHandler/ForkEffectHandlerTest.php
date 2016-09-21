@@ -1,6 +1,6 @@
 <?php
 
-namespace Zack\Tests\EffectHandler;
+namespace Zack\Saga\Tests\EffectHandler;
 
 use PHPUnit\Framework\TestCase;
 use Zack\Saga\Effect\ForkEffect;

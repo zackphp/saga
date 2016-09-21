@@ -14,7 +14,7 @@
     },
     "autoload": {
         "files": [ "src/Saga/Resources/functions/effects.php" ],
-        "psr-4": { "Zack\\": "src/" },
+        "psr-4": { "Zack\\Saga\\": "src/" },
         "exclude-from-classmap": [
             "/Tests/"
         ]

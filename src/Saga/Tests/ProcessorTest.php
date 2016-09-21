@@ -1,6 +1,6 @@
 <?php
 
-namespace Zack\Tests;
+namespace Zack\Saga\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Zack\Saga\Effect\Effect;
