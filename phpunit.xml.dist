@@ -20,8 +20,8 @@
         <whitelist>
             <directory>./src</directory>
             <exclude>
-                <directory>./src/Resources</directory>
-                <directory>./src/Tests</directory>
+                <directory>./src/Saga/Resources</directory>
+                <directory>./src/Saga/Tests</directory>
                 <directory>./vendor</directory>
             </exclude>
         </whitelist>
