@@ -26,7 +26,7 @@ final class EventEffectHandler implements EffectHandlerInterface
     /**
      * @return array
      */
-    public function getEffectHandlers()
+    public function getEffectHandlers(): array
     {
         return [
             Effects::TAKE => 'handleTake',

@@ -13,6 +13,7 @@ use Zack\Saga\Exception\SagaException;
 use Zack\Saga\Exception\UnknownEffectException;
 use Zack\Saga\Process\Process;
 use Zack\Saga\Process\ProcessInterface;
+use Zack\Saga\Process\Task;
 
 /**
  * Saga Processor.
@@ -59,8 +60,9 @@ class Processor implements ProcessorInterface
 
     /**
      * @param SagaInterface|callable $saga
+     * @return Task
      */
-    public function run($saga)
+    public function run($saga): Task
     {
         $saga = self::createSaga($saga);
 
@@ -68,6 +70,8 @@ class Processor implements ProcessorInterface
 
         $process = new Process($this, $generator);
         $process->start();
+
+        return new Task($process);
     }
 
     /**

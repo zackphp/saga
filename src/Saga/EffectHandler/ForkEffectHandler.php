@@ -25,7 +25,7 @@ final class ForkEffectHandler implements EffectHandlerInterface
     /**
      * @return array
      */
-    public function getEffectHandlers()
+    public function getEffectHandlers(): array
     {
         return [
             Effects::FORK => 'handleFork'
@@ -39,9 +39,8 @@ final class ForkEffectHandler implements EffectHandlerInterface
     public function handleFork(ForkEffect $effect, ProcessInterface $process)
     {
         $saga = $effect->getSaga();
-        $task = new Task($process);
 
-        $this->processor->run($saga);
+        $task = $this->processor->run($saga);
         $process->send($task);
     }
 }

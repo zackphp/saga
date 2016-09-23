@@ -4,5 +4,5 @@ namespace Zack\Saga\EffectHandler;
 
 interface EffectHandlerInterface
 {
-    public function getEffectHandlers();
+    public function getEffectHandlers(): array;
 }

@@ -33,13 +33,16 @@ class ForkEffectHandlerTest extends TestCase
 
         $process = $this->createMock(ProcessInterface::class);
 
+        $task = new Task($process);
+
         $processor->expects($this->once())
             ->method('run')
-            ->with($this->identicalTo($saga));
+            ->with($this->identicalTo($saga))
+            ->willReturn($task);
 
         $process->expects($this->once())
             ->method('send')
-            ->with($this->isInstanceOf(Task::class));
+            ->with($this->identicalTo($task));
 
         $effectHandler->handleFork($effect, $process);
     }
