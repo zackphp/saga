@@ -8,7 +8,9 @@ use Zack\Saga\Process\Task;
 
 class TaskTest extends TestCase
 {
-    public function testTask()
+    const RETURN = 'return';
+
+    public function testProxy()
     {
         $process = $this->createMock(ProcessInterface::class);
         $task = new Task($process);
@@ -17,5 +19,17 @@ class TaskTest extends TestCase
             ->method('cancel');
 
         $task->cancel();
+
+        $process->expects($this->once())
+            ->method('isRunning')
+            ->willReturn(true);
+
+        $this->assertTrue($task->isRunning());
+
+        $process->expects($this->once())
+            ->method('getReturn')
+            ->willReturn(self::RETURN);
+
+        $this->assertSame($task->getReturn(), self::RETURN);
     }
 }

@@ -32,11 +32,6 @@ class SimpleSaga implements SagaInterface
         }
 
         yield from $generator;
-
-        try {
-            return $generator->getReturn();
-        } catch (\Exception $exception) {
-            // This is a simple try and catch to "clone" the return behavior of the callback.
-        }
+        return $generator->getReturn();
     }
 }

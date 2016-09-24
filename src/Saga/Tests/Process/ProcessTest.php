@@ -13,6 +13,7 @@ use Zack\Saga\ProcessorInterface;
 class ProcessTest extends TestCase
 {
     const MESSAGE = 'message';
+    const RETURN = 'return';
 
     public function testGeneratorHandling()
     {
@@ -124,5 +125,101 @@ class ProcessTest extends TestCase
         $this->expectException(SagaException::class);
 
         $process->start();
+    }
+
+    public function testRunningException()
+    {
+        $processor = $this->createMock(ProcessorInterface::class);
+        $effect = $this->createMock(Effect::class);
+
+        $function = function() use ($effect) {
+            yield $effect;
+            throw new \Exception();
+        };
+
+        $process = new Process($processor, $function());
+
+        $this->assertFalse($process->isRunning());
+
+        $process->start();
+        $this->assertTrue($process->isRunning());
+
+        try {
+            $process->next();
+        } catch (\Exception $exception) {
+            $this->assertFalse($process->isRunning());
+        }
+    }
+
+    public function testRunning()
+    {
+        $processor = $this->createMock(ProcessorInterface::class);
+        $effect = $this->createMock(Effect::class);
+
+        $function = function() use ($effect) {
+            yield $effect;
+        };
+
+        $process = new Process($processor, $function());
+
+        $this->assertFalse($process->isRunning());
+
+        $process->start();
+        $this->assertTrue($process->isRunning());
+
+        $process->next();
+        $this->assertFalse($process->isRunning());
+    }
+
+    public function testRunningReturn()
+    {
+        $processor = $this->createMock(ProcessorInterface::class);
+        $effect = $this->createMock(Effect::class);
+
+        $function = function() use ($effect) {
+            yield $effect;
+            return;
+            yield $effect;
+        };
+
+        $process = new Process($processor, $function());
+
+        $this->assertFalse($process->isRunning());
+
+        $process->start();
+        $this->assertTrue($process->isRunning());
+
+        $process->next();
+        $this->assertFalse($process->isRunning());
+    }
+
+    public function testReturn()
+    {
+        $processor = $this->createMock(ProcessorInterface::class);
+        $effect = $this->createMock(Effect::class);
+
+        $function = function() use ($effect) {
+            yield $effect;
+            return self::RETURN;
+        };
+
+        $process = new Process($processor, $function());
+
+        $process->start();
+        $process->next();
+
+        $this->assertSame(self::RETURN, $process->getReturn());
+
+        $function = function() use ($effect) {
+            yield $effect;
+            return self::RETURN;
+        };
+
+        $process = new Process($processor, $function());
+
+        $process->start();
+
+        $this->expectException(SagaException::class);
+        $process->getReturn();
     }
 }

@@ -15,8 +15,8 @@ class SimpleSagaTest extends TestCase
     {
         $test = function() {
             $message = yield;
-
             $this->assertSame(self::MESSAGE, $message);
+            yield;
             return self::RETURN;
         };
 
@@ -27,6 +27,7 @@ class SimpleSagaTest extends TestCase
 
         $generator->rewind();
         $generator->send(self::MESSAGE);
+        $generator->next();
 
         $this->assertSame(self::RETURN, $generator->getReturn());
     }
