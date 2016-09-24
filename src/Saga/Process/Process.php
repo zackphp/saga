@@ -14,6 +14,8 @@ final class Process implements ProcessInterface
     private $processor;
     /** @var \Generator */
     private $generator;
+    /** @var bool */
+    private $running = false;
 
     /**
      * Process constructor.
@@ -29,6 +31,7 @@ final class Process implements ProcessInterface
 
     public function start()
     {
+        $this->running = true;
         $this->generator->rewind();
 
         $this->current();
@@ -40,6 +43,8 @@ final class Process implements ProcessInterface
     public function current()
     {
         if (!$this->generator->valid()) {
+            $this->running = false;
+
             return;
         }
 
@@ -60,7 +65,13 @@ final class Process implements ProcessInterface
 
     public function next()
     {
-        $this->generator->next();
+        try {
+            $this->generator->next();
+        } catch (\Exception $exception) {
+            $this->running = false;
+
+            throw $exception;
+        }
 
         $this->current();
     }
@@ -97,5 +108,25 @@ final class Process implements ProcessInterface
         }
 
         $this->current();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRunning(): bool
+    {
+        return $this->running;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReturn()
+    {
+        if ($this->running) {
+            throw new SagaException('Cannot get return value of a running process.');
+        }
+
+        return $this->generator->getReturn();
     }
 }

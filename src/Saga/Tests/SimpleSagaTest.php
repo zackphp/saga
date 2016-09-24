@@ -3,26 +3,45 @@
 namespace Zack\Saga\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Zack\Saga\Exception\SagaException;
 use Zack\Saga\SimpleSaga;
 
 class SimpleSagaTest extends TestCase
 {
-    const SAGA_METHOD = 'saga';
+    const MESSAGE = 'test message';
+    const RETURN = 'return value';
 
     public function testRun()
     {
-        $mock = $this->getMockBuilder('stdClass')
-            ->setMethods([self::SAGA_METHOD])
-            ->getMock();
+        $test = function() {
+            $message = yield;
 
-        $mock->expects($this->once())
-            ->method(self::SAGA_METHOD)
-            ->willReturn(new \EmptyIterator());
+            $this->assertSame(self::MESSAGE, $message);
+            return self::RETURN;
+        };
 
-        $saga = new SimpleSaga([$mock, self::SAGA_METHOD]);
+        $saga = new SimpleSaga($test);
 
         $generator = $saga->run();
+        $this->assertInstanceOf(\Generator::class, $saga->run());
+
         $generator->rewind();
-        $generator->next();
+        $generator->send(self::MESSAGE);
+
+        $this->assertSame(self::RETURN, $generator->getReturn());
+    }
+
+    public function testInvalidGenerator()
+    {
+        $test = function() {
+            return 'invalid return';
+        };
+
+        $saga = new SimpleSaga($test);
+        $generator = $saga->run();
+
+        $this->expectException(SagaException::class);
+
+        $generator->rewind();
     }
 }

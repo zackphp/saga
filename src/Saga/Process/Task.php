@@ -22,4 +22,20 @@ final class Task
     {
         $this->process->cancel();
     }
+
+    /**
+     * @return bool
+     */
+    public function isRunning(): bool
+    {
+        return $this->process->isRunning();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReturn()
+    {
+        return $this->process->getReturn();
+    }
 }

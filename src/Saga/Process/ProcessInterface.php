@@ -13,4 +13,8 @@ interface ProcessInterface
     public function send($value);
 
     public function cancel();
+
+    public function isRunning();
+
+    public function getReturn();
 }
