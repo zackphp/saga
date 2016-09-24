@@ -53,5 +53,5 @@ $eventDispatcher->dispatch('acme.user.login', new LoginEvent(1));
 You can install this library via [Composer](https://getcomposer.org/):
 
 ```bash
-$ composer require zackphp/saga
+$ composer require zack/saga
 ```
