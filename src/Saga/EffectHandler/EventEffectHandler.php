@@ -45,8 +45,8 @@ final class EventEffectHandler implements EffectHandlerInterface
 
         $listener = function (Event $event) use ($pattern, $process, $eventName, &$listener) {
             if ($pattern === null || $pattern($event)) {
-                $process->send($event);
                 $this->dispatcher->removeListener($eventName, $listener);
+                $process->send($event);
             }
         };
 

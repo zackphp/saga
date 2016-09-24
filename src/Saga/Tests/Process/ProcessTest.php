@@ -106,7 +106,7 @@ class ProcessTest extends TestCase
         $process->next();
     }
 
-    public function testHanldeUnknownEffect()
+    public function testHandleUnknownEffect()
     {
         $processor = $this->createMock(ProcessorInterface::class);
         $startEffect = $this->createMock(Effect::class);

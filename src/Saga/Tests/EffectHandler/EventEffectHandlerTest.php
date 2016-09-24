@@ -16,7 +16,7 @@ class EventEffectHandlerTest extends TestCase
 {
     const EVENT_NAME = 'test_event';
 
-    public function testGetEffectHandler()
+    public function testGetEffectHandlers()
     {
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $effectHandler = new EventEffectHandler($dispatcher);
