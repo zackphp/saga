@@ -12,17 +12,17 @@ final class ForkEffect extends Effect
 
     /**
      * ForkEffect constructor.
-     * @param SagaInterface $saga
+     * @param callable|SagaInterface $saga
      */
-    public function __construct(SagaInterface $saga)
+    public function __construct($saga)
     {
         $this->saga = $saga;
     }
 
     /**
-     * @return SagaInterface
+     * @return callable|SagaInterface
      */
-    public function getSaga(): SagaInterface
+    public function getSaga()
     {
         return $this->saga;
     }

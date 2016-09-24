@@ -45,6 +45,6 @@ final class Effects
      */
     public static function fork($saga)
     {
-        return new ForkEffect(Processor::createSaga($saga));
+        return new ForkEffect($saga);
     }
 }
